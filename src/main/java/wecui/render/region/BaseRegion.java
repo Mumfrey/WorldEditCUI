@@ -46,5 +46,8 @@ public abstract class BaseRegion implements InitializationFactory {
     public void setCylinderRadius(double x, double z) {
     }
 
+    public void addPolygon(int[] vertexIds) {
+    }
+
     public abstract RegionType getType();
 }
