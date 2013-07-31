@@ -41,7 +41,7 @@ public class CuboidRegion extends BaseRegion {
     }
 
     @Override
-    public void setCuboidPoint(int id, int x, int y, int z) {
+    public void setCuboidPoint(int id, double x, double y, double z) {
         if (id == 0) {
             this.firstPoint = new PointCube(x, y, z);
             this.firstPoint.setColor(LineColor.CUBOIDPOINT1);
