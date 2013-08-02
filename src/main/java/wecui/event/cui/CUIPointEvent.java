@@ -22,9 +22,9 @@ public class CUIPointEvent extends CUIBaseEvent {
     @Override
     public String run() {
         int id = this.getInt(0);
-        int x = this.getInt(1);
-        int y = this.getInt(2);
-        int z = this.getInt(3);
+        double x = this.getDouble(1);
+        double y = this.getDouble(2);
+        double z = this.getDouble(3);
 
         this.controller.getSelection().setCuboidPoint(id, x, y, z);
         this.setLocalPoint(id, x, y, z);
@@ -33,7 +33,7 @@ public class CUIPointEvent extends CUIBaseEvent {
         return null;
     }
 
-    protected void setLocalPoint(int id, int x, int y, int z) {
+    protected void setLocalPoint(int id, double x, double y, double z) {
         /*if (controller.getLocalPlugin().isEnabled()) {
 
             WorldEdit plugin = controller.getLocalPlugin().getPlugin();

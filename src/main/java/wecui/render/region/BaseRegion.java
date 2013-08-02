@@ -25,7 +25,7 @@ public abstract class BaseRegion implements InitializationFactory {
 
     public abstract void render();
 
-    public void setCuboidPoint(int id, int x, int y, int z) {
+    public void setCuboidPoint(int id, double x, double y, double z) {
     }
 
     public void setPolygonPoint(int id, int x, int z) {
@@ -44,6 +44,9 @@ public abstract class BaseRegion implements InitializationFactory {
     }
 
     public void setCylinderRadius(double x, double z) {
+    }
+
+    public void addPolygon(int[] vertexIds) {
     }
 
     public abstract RegionType getType();

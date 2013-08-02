@@ -6,6 +6,7 @@ import wecui.render.region.CuboidRegion;
 import wecui.render.region.CylinderRegion;
 import wecui.render.region.EllipsoidRegion;
 import wecui.render.region.PolygonRegion;
+import wecui.render.region.PolyhedronRegion;
 
 /**
  * Called when selection event is received
@@ -37,8 +38,10 @@ public class CUISelectionEvent extends CUIBaseEvent {
             newRegion = new EllipsoidRegion(this.controller);
         } else if (this.getString(0).equals("cylinder")) {
             newRegion = new CylinderRegion(this.controller);
+        } else if (this.getString(0).equals("polyhedron")) {
+            newRegion = new PolyhedronRegion(this.controller);
         } else {
-            return "Invalid selection type. Must be cuboid|polygon2d|ellipsoid|cylinder.";
+            return "Invalid selection type. Must be cuboid|polygon2d|ellipsoid|cylinder|polyhedron.";
         }
 
         this.controller.setSelection(newRegion);
