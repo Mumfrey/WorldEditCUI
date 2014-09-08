@@ -74,13 +74,13 @@ public class LiteModWorldEditCUI implements InitCompleteListener, PluginChannelL
 	{
 		this.visible = true;
 		this.controller.getDebugger().debug("Joined game, sending initial handshake");
-		this.helo();
+		this.hello();
 	}
 	
 	/**
 	 * 
 	 */
-	private void helo()
+	private void hello()
 	{
 		byte[] buffer = ("v|" + WorldEditCUI.protocolVersion).getBytes(UTF_8_CHARSET);
 		ClientPluginChannels.sendMessage(CHANNEL_WECUI, buffer, ChannelPolicy.DISPATCH_ALWAYS);
