@@ -1,7 +1,7 @@
 wecui.options.title=WorldEditCUI Opties
 
-wecui.keys.toggle=Toggle CUI visibility
-wecui.keys.clear=Clear WorldEdit selection
+wecui.keys.toggle=CUI zichtbaarheid omschakelen
+wecui.keys.clear=WorldEdit selectie verwijderen
 wecui.keys.category=WorldEditCUI
 
 gui.ok=OK
