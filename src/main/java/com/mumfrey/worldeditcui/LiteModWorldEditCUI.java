@@ -195,7 +195,7 @@ public class LiteModWorldEditCUI implements InitCompleteListener, PluginChannelL
 	@Override
 	public String getVersion()
 	{
-		return "1.8.0_03";
+		return "@VERSION@";
 	}
 	
 	@Override
