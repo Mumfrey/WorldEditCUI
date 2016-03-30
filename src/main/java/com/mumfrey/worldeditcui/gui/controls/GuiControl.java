@@ -5,6 +5,8 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+
 import static com.mumfrey.liteloader.gl.GL.*;
 
 /**
@@ -202,9 +204,9 @@ public class GuiControl extends GuiButton
 		
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-		worldRenderer.startDrawing(GL_LINES);
-		worldRenderer.addVertex(x1, y1, 0);
-		worldRenderer.addVertex(x2, y2, 0);
+		worldRenderer.begin(GL_LINES, DefaultVertexFormats.POSITION);
+		worldRenderer.pos(x1, y1, 0).endVertex();
+		worldRenderer.pos(x2, y2, 0).endVertex();
 		tessellator.draw();
 		
 		glEnableTexture2D();
@@ -271,20 +273,20 @@ public class GuiControl extends GuiButton
 		// Draw the line
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-		worldRenderer.startDrawingQuads();
-		worldRenderer.addVertex(x1, y2, z);
-		worldRenderer.addVertex(x2, y2, z);
-		worldRenderer.addVertex(x2, y1, z);
-		worldRenderer.addVertex(x1, y1, z);
+		worldRenderer.begin(GL_QUADS, DefaultVertexFormats.POSITION);
+		worldRenderer.pos(x1, y2, z).endVertex();
+		worldRenderer.pos(x2, y2, z).endVertex();
+		worldRenderer.pos(x2, y1, z).endVertex();
+		worldRenderer.pos(x1, y1, z).endVertex();
 		tessellator.draw();
 		
 		// If an arrow then draw the arrow head
 		if (arrowHead && arrowHeadSize > 0)
 		{
-			worldRenderer.startDrawing(4);
-			worldRenderer.addVertex(x2, 0 - arrowHeadSize / 2, z);
-			worldRenderer.addVertex(x2, arrowHeadSize / 2, z);
-			worldRenderer.addVertex(length, 0, z);
+			worldRenderer.begin(GL_TRIANGLES, DefaultVertexFormats.POSITION);
+			worldRenderer.pos(x2, 0 - arrowHeadSize / 2, z).endVertex();
+			worldRenderer.pos(x2, arrowHeadSize / 2, z).endVertex();
+			worldRenderer.pos(length, 0, z).endVertex();
 			tessellator.draw();
 		}
 		
@@ -322,11 +324,11 @@ public class GuiControl extends GuiButton
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-		worldRenderer.startDrawingQuads();
-		worldRenderer.addVertexWithUV(x2, y2, this.zLevel, (float)(u) * texMapScale, (float)(v2) * texMapScale);
-		worldRenderer.addVertexWithUV(x2, y, this.zLevel, (float)(u2) * texMapScale, (float)(v2) * texMapScale);
-		worldRenderer.addVertexWithUV(x, y, this.zLevel, (float)(u2) * texMapScale, (float)(v) * texMapScale);
-		worldRenderer.addVertexWithUV(x, y2, this.zLevel, (float)(u) * texMapScale, (float)(v) * texMapScale);
+		worldRenderer.begin(GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		worldRenderer.pos(x2, y2, this.zLevel).tex((float) (u) * texMapScale, (float) (v2) * texMapScale).endVertex();
+		worldRenderer.pos(x2, y, this.zLevel).tex((float) (u2) * texMapScale, (float) (v2) * texMapScale).endVertex();
+		worldRenderer.pos(x, y, this.zLevel).tex((float) (u2) * texMapScale, (float) (v) * texMapScale).endVertex();
+		worldRenderer.pos(x, y2, this.zLevel).tex((float) (u) * texMapScale, (float)(v) * texMapScale)  .endVertex();
 		tessellator.draw();
 	}
 	
@@ -345,11 +347,11 @@ public class GuiControl extends GuiButton
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-		worldRenderer.startDrawingQuads();
-		worldRenderer.addVertexWithUV(x + height, y + width, this.zLevel, (float)(u) * texMapScale, (float)(v + height) * texMapScale);
-		worldRenderer.addVertexWithUV(x + height, y, this.zLevel, (float)(u + width) * texMapScale, (float)(v + height) * texMapScale);
-		worldRenderer.addVertexWithUV(x, y, this.zLevel, (float)(u + width) * texMapScale, (float)(v) * texMapScale);
-		worldRenderer.addVertexWithUV(x, y + width, this.zLevel, (float)(u) * texMapScale, (float)(v) * texMapScale);
+		worldRenderer.begin(GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		worldRenderer.pos(x + height, y + width, this.zLevel).tex((float)(u) * texMapScale, (float)(v + height) * texMapScale).endVertex();
+		worldRenderer.pos(x + height, y, this.zLevel).tex((float)(u + width) * texMapScale, (float)(v + height) * texMapScale).endVertex();
+		worldRenderer.pos(x, y, this.zLevel).tex((float)(u + width) * texMapScale, (float)(v) * texMapScale).endVertex();
+		worldRenderer.pos(x, y + width, this.zLevel).tex((float)(u) * texMapScale, (float)(v) * texMapScale).endVertex();
 		tessellator.draw();
 	}
 	
@@ -507,14 +509,14 @@ public class GuiControl extends GuiButton
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
 		
-		worldRenderer.startDrawing(GL_LINES);
-		worldRenderer.addVertex(x - size, y, 0);
-		worldRenderer.addVertex(x + size, y, 0);
+		worldRenderer.begin(GL_LINES, DefaultVertexFormats.POSITION);
+		worldRenderer.pos(x - size, y, 0).endVertex();
+		worldRenderer.pos(x + size, y, 0).endVertex();
 		tessellator.draw();
 		
-		worldRenderer.startDrawing(GL_LINES);
-		worldRenderer.addVertex(x, y - size, 0);
-		worldRenderer.addVertex(x, y + size, 0);
+		worldRenderer.begin(GL_LINES, DefaultVertexFormats.POSITION);
+		worldRenderer.pos(x, y - size, 0).endVertex();
+		worldRenderer.pos(x, y + size, 0).endVertex();
 		tessellator.draw();
 		
 		glDisableColorLogic();
@@ -586,11 +588,11 @@ public class GuiControl extends GuiButton
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-		worldRenderer.startDrawingQuads();
-		worldRenderer.addVertexWithUV(x, y2, this.zLevel, (float)(u) * texMapScale, (float)(v2) * texMapScale);
-		worldRenderer.addVertexWithUV(x2, y2, this.zLevel, (float)(u2) * texMapScale, (float)(v2) * texMapScale);
-		worldRenderer.addVertexWithUV(x2, y, this.zLevel, (float)(u2) * texMapScale, (float)(v) * texMapScale);
-		worldRenderer.addVertexWithUV(x, y, this.zLevel, (float)(u) * texMapScale, (float)(v) * texMapScale);
+		worldRenderer.begin(GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		worldRenderer.pos(x, y2, this.zLevel).tex((float)(u) * texMapScale, (float)(v2) * texMapScale).endVertex();
+		worldRenderer.pos(x2, y2, this.zLevel).tex( (float)(u2) * texMapScale, (float)(v2) * texMapScale).endVertex();
+		worldRenderer.pos(x2, y, this.zLevel).tex((float)(u2) * texMapScale, (float)(v) * texMapScale).endVertex();
+		worldRenderer.pos(x, y, this.zLevel).tex((float)(u) * texMapScale, (float)(v) * texMapScale).endVertex();
 		tessellator.draw();
 	}
 	
@@ -610,11 +612,11 @@ public class GuiControl extends GuiButton
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-		worldRenderer.startDrawingQuads();
-		worldRenderer.addVertexWithUV(x, y2, this.zLevel, u, v2);
-		worldRenderer.addVertexWithUV(x2, y2, this.zLevel, u2, v2);
-		worldRenderer.addVertexWithUV(x2, y, this.zLevel, u2, v);
-		worldRenderer.addVertexWithUV(x, y, this.zLevel, u, v);
+		worldRenderer.begin(GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		worldRenderer.pos(x, y2, this.zLevel ).tex(u, v2).endVertex();
+		worldRenderer.pos(x2, y2, this.zLevel).tex(u2, v2).endVertex();
+		worldRenderer.pos(x2, y, this.zLevel ).tex(u2, v).endVertex();
+		worldRenderer.pos(x, y, this.zLevel  ).tex(u, v).endVertex();
 		tessellator.draw();
 	}
 	
@@ -634,11 +636,11 @@ public class GuiControl extends GuiButton
 	{
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
-		worldRenderer.startDrawingQuads();
-		worldRenderer.addVertexWithUV(x + 0, y + height, this.zLevel, (float)(u + 0) * texMapScale, (float)(v + height) * texMapScale);
-		worldRenderer.addVertexWithUV(x + width, y + height, this.zLevel, (float)(u + width) * texMapScale, (float)(v + height) * texMapScale);
-		worldRenderer.addVertexWithUV(x + width, y + 0, this.zLevel, (float)(u + width) * texMapScale, (float)(v + 0) * texMapScale);
-		worldRenderer.addVertexWithUV(x + 0, y + 0, this.zLevel, (float)(u + 0) * texMapScale, (float)(v + 0) * texMapScale);
+		worldRenderer.begin(GL_QUADS, DefaultVertexFormats.POSITION_TEX);
+		worldRenderer.pos(x + 0, y + height, this.zLevel).tex((float)(u + 0) * texMapScale, (float)(v + height) * texMapScale).endVertex();
+		worldRenderer.pos(x + width, y + height, this.zLevel).tex((float)(u + width) * texMapScale, (float)(v + height) * texMapScale).endVertex();
+		worldRenderer.pos(x + width, y + 0, this.zLevel).tex((float)(u + width) * texMapScale, (float)(v + 0) * texMapScale).endVertex();
+		worldRenderer.pos(x + 0, y + 0, this.zLevel).tex((float)(u + 0) * texMapScale, (float)(v + 0) * texMapScale).endVertex();
 		tessellator.draw();
 	}
 	

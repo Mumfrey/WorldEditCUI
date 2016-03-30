@@ -59,7 +59,7 @@ public class CUIConfigPanel extends Gui implements ConfigPanel
 	{
 		this.mod = host.getMod();
 		
-		ScaledResolution scaledresolution = new ScaledResolution(this.mc, this.mc.displayWidth, this.mc.displayHeight);
+		ScaledResolution scaledresolution = new ScaledResolution(this.mc);
 		GuiControl.setScreenSizeAndScale(host.getWidth(), this.getContentHeight(), scaledresolution.getScaleFactor());
 		
 		this.controlList.clear();

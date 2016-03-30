@@ -10,3 +10,4 @@ bin/
 
 # forge gradle eclipse launch configuration
 *.launch
+run/

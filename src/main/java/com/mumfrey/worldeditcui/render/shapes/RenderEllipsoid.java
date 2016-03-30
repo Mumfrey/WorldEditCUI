@@ -7,6 +7,8 @@ import com.mumfrey.worldeditcui.util.Vector3;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+
 import static com.mumfrey.liteloader.gl.GL.*;
 
 /**
@@ -59,7 +61,7 @@ public class RenderEllipsoid
 		int yRad = (int)Math.floor(this.radii.getY());
 		for (int yBlock = -yRad; yBlock < yRad; yBlock++)
 		{
-			worldRenderer.startDrawing(GL_LINE_LOOP);
+			worldRenderer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
 			colour.prepareColour();
 			
 			for (int i = 0; i <= 40; i++)
@@ -68,12 +70,12 @@ public class RenderEllipsoid
 				double tempX = this.radii.getX() * Math.cos(tempTheta) * Math.cos(Math.asin(yBlock / this.radii.getY()));
 				double tempZ = this.radii.getZ() * Math.sin(tempTheta) * Math.cos(Math.asin(yBlock / this.radii.getY()));
 				
-				worldRenderer.addVertex(tempX, yBlock, tempZ);
+				worldRenderer.pos(tempX, yBlock, tempZ).endVertex();
 			}
 			tessellator.draw();
 		}
 		
-		worldRenderer.startDrawing(GL_LINE_LOOP);
+		worldRenderer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
 		colour.prepareColour();
 		
 		for (int i = 0; i <= 40; i++)
@@ -82,7 +84,7 @@ public class RenderEllipsoid
 			double tempX = this.radii.getX() * Math.cos(tempTheta);
 			double tempZ = this.radii.getZ() * Math.sin(tempTheta);
 			
-			worldRenderer.addVertex(tempX, 0.0, tempZ);
+			worldRenderer.pos(tempX, 0.0, tempZ).endVertex();
 		}
 		tessellator.draw();
 	}
@@ -95,7 +97,7 @@ public class RenderEllipsoid
 		int xRad = (int)Math.floor(this.radii.getX());
 		for (int xBlock = -xRad; xBlock < xRad; xBlock++)
 		{
-			worldRenderer.startDrawing(GL_LINE_LOOP);
+			worldRenderer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
 			colour.prepareColour();
 			
 			for (int i = 0; i <= 40; i++)
@@ -104,12 +106,12 @@ public class RenderEllipsoid
 				double tempY = this.radii.getY() * Math.cos(tempTheta) * Math.sin(Math.acos(xBlock / this.radii.getX()));
 				double tempZ = this.radii.getZ() * Math.sin(tempTheta) * Math.sin(Math.acos(xBlock / this.radii.getX()));
 				
-				worldRenderer.addVertex(xBlock, tempY, tempZ);
+				worldRenderer.pos(xBlock, tempY, tempZ).endVertex();
 			}
 			tessellator.draw();
 		}
 		
-		worldRenderer.startDrawing(GL_LINE_LOOP);
+		worldRenderer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
 		colour.prepareColour();
 		
 		for (int i = 0; i <= 40; i++)
@@ -118,7 +120,7 @@ public class RenderEllipsoid
 			double tempY = this.radii.getY() * Math.cos(tempTheta);
 			double tempZ = this.radii.getZ() * Math.sin(tempTheta);
 			
-			worldRenderer.addVertex(0.0, tempY, tempZ);
+			worldRenderer.pos(0.0, tempY, tempZ).endVertex();
 		}
 		tessellator.draw();
 	}
@@ -131,7 +133,7 @@ public class RenderEllipsoid
 		int zRad = (int)Math.floor(this.radii.getZ());
 		for (int zBlock = -zRad; zBlock < zRad; zBlock++)
 		{
-			worldRenderer.startDrawing(GL_LINE_LOOP);
+			worldRenderer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
 			colour.prepareColour();
 			
 			for (int i = 0; i <= 40; i++)
@@ -140,12 +142,12 @@ public class RenderEllipsoid
 				double tempX = this.radii.getX() * Math.sin(tempTheta) * Math.sin(Math.acos(zBlock / this.radii.getZ()));
 				double tempY = this.radii.getY() * Math.cos(tempTheta) * Math.sin(Math.acos(zBlock / this.radii.getZ()));
 				
-				worldRenderer.addVertex(tempX, tempY, zBlock);
+				worldRenderer.pos(tempX, tempY, zBlock).endVertex();
 			}
 			tessellator.draw();
 		}
 		
-		worldRenderer.startDrawing(GL_LINE_LOOP);
+		worldRenderer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
 		colour.prepareColour();
 		
 		for (int i = 0; i <= 40; i++)
@@ -154,7 +156,7 @@ public class RenderEllipsoid
 			double tempX = this.radii.getX() * Math.cos(tempTheta);
 			double tempY = this.radii.getY() * Math.sin(tempTheta);
 			
-			worldRenderer.addVertex(tempX, tempY, 0.0);
+			worldRenderer.pos(tempX, tempY, 0.0).endVertex();
 		}
 		tessellator.draw();
 	}

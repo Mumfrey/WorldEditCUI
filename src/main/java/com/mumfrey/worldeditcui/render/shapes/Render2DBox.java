@@ -10,6 +10,8 @@ import com.mumfrey.worldeditcui.util.Vector3;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+
 import static com.mumfrey.liteloader.gl.GL.*;
 
 /**
@@ -43,7 +45,7 @@ public class Render2DBox
 		{
 			tempColour.prepareRender();
 			
-			worldRenderer.startDrawing(GL_LINES);
+			worldRenderer.begin(GL_LINES, DefaultVertexFormats.POSITION);
 			tempColour.prepareColour();
 			
 			for (PointRectangle point : this.points)
@@ -53,8 +55,8 @@ public class Render2DBox
 					Vector2 pos = point.getPoint();
 					double x = pos.getX() - cameraPos.getX();
 					double z = pos.getY() - cameraPos.getZ();
-					worldRenderer.addVertex(x + 0.5, this.min + off, z + 0.5);
-					worldRenderer.addVertex(x + 0.5, this.max + 1 + off, z + 0.5);
+					worldRenderer.pos(x + 0.5, this.min + off, z + 0.5).endVertex();
+					worldRenderer.pos(x + 0.5, this.max + 1 + off, z + 0.5).endVertex();
 				}
 			}
 			tessellator.draw();

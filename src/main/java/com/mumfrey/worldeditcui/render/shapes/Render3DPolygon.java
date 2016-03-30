@@ -6,6 +6,7 @@ import com.mumfrey.worldeditcui.util.Vector3;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import static com.mumfrey.liteloader.gl.GL.*;
 
 /**
@@ -35,11 +36,11 @@ public class Render3DPolygon
 		{
 			tempColour.prepareRender();
 			
-			worldRenderer.startDrawing(GL_LINE_LOOP);
+			worldRenderer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
 			tempColour.prepareColour();
 			for (Vector3 vertex : this.vertices)
 			{
-				worldRenderer.addVertex(vertex.getX() - cameraPos.getX(), vertex.getY() - cameraPos.getY(), vertex.getZ() - cameraPos.getZ());
+				worldRenderer.pos(vertex.getX() - cameraPos.getX(), vertex.getY() - cameraPos.getY(), vertex.getZ() - cameraPos.getZ()).endVertex();
 			}
 			tessellator.draw();
 		}

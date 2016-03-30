@@ -7,6 +7,8 @@ import com.mumfrey.worldeditcui.util.Vector3;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+
 import static com.mumfrey.liteloader.gl.GL.*;
 
 /**
@@ -50,39 +52,39 @@ public class Render3DBox
 			tempColour.prepareRender();
 			
 			// Draw bottom face
-			worldRenderer.startDrawing(GL_LINE_LOOP);
+			worldRenderer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
 			tempColour.prepareColour();
-			worldRenderer.addVertex(x1, y1, z1);
-			worldRenderer.addVertex(x2, y1, z1);
-			worldRenderer.addVertex(x2, y1, z2);
-			worldRenderer.addVertex(x1, y1, z2);
+			worldRenderer.pos(x1, y1, z1).endVertex();
+			worldRenderer.pos(x2, y1, z1).endVertex();
+			worldRenderer.pos(x2, y1, z2).endVertex();
+			worldRenderer.pos(x1, y1, z2).endVertex();
 			tessellator.draw();
 			
 			// Draw top face
-			worldRenderer.startDrawing(GL_LINE_LOOP);
+			worldRenderer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
 			tempColour.prepareColour();
-			worldRenderer.addVertex(x1, y2, z1);
-			worldRenderer.addVertex(x2, y2, z1);
-			worldRenderer.addVertex(x2, y2, z2);
-			worldRenderer.addVertex(x1, y2, z2);
+			worldRenderer.pos(x1, y2, z1).endVertex();
+			worldRenderer.pos(x2, y2, z1).endVertex();
+			worldRenderer.pos(x2, y2, z2).endVertex();
+			worldRenderer.pos(x1, y2, z2).endVertex();
 			tessellator.draw();
 			
 			// Draw join top and bottom faces
-			worldRenderer.startDrawing(GL_LINES);
+			worldRenderer.begin(GL_LINES, DefaultVertexFormats.POSITION);
 			tempColour.prepareColour();
-			
-			worldRenderer.addVertex(x1, y1, z1);
-			worldRenderer.addVertex(x1, y2, z1);
-			
-			worldRenderer.addVertex(x2, y1, z1);
-			worldRenderer.addVertex(x2, y2, z1);
-			
-			worldRenderer.addVertex(x2, y1, z2);
-			worldRenderer.addVertex(x2, y2, z2);
-			
-			worldRenderer.addVertex(x1, y1, z2);
-			worldRenderer.addVertex(x1, y2, z2);
-			
+
+			worldRenderer.pos(x1, y1, z1).endVertex();
+			worldRenderer.pos(x1, y2, z1).endVertex();
+
+			worldRenderer.pos(x2, y1, z1).endVertex();
+			worldRenderer.pos(x2, y2, z1).endVertex();
+
+			worldRenderer.pos(x2, y1, z2).endVertex();
+			worldRenderer.pos(x2, y2, z2).endVertex();
+
+			worldRenderer.pos(x1, y1, z2).endVertex();
+			worldRenderer.pos(x1, y2, z2).endVertex();
+
 			tessellator.draw();
 		}
 	}
