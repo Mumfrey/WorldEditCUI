@@ -10,22 +10,25 @@ import com.mumfrey.worldeditcui.util.Vector3;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+
 import static com.mumfrey.liteloader.gl.GL.*;
 
 /**
- * Draws the grid for a polygon region
+ * Draws the top and bottom rings of a polygon region
  * 
  * @author yetanotherx
  * @author lahwran
  */
-public class Render2DGrid
+public class Render2DBox
 {
+	
 	protected LineColour colour;
 	protected List<PointRectangle> points;
 	protected int min;
 	protected int max;
 	
-	public Render2DGrid(LineColour colour, List<PointRectangle> points, int min, int max)
+	public Render2DBox(LineColour colour, List<PointRectangle> points, int min, int max)
 	{
 		this.colour = colour;
 		this.points = points;
@@ -35,23 +38,16 @@ public class Render2DGrid
 	
 	public void render(Vector3 cameraPos)
 	{
-		double off = 0.03;
-		for (double height = this.min; height <= this.max + 1; height++)
-		{
-			this.drawPoly(cameraPos, height + off);
-		}
-	}
-	
-	protected void drawPoly(Vector3 cameraPos, double height)
-	{
 		Tessellator tessellator = Tessellator.getInstance();
 		WorldRenderer worldRenderer = tessellator.getWorldRenderer();
+		double off = 0.03 - cameraPos.getY();
 		for (LineInfo tempColour : this.colour.getColours())
 		{
 			tempColour.prepareRender();
 			
-			worldRenderer.startDrawing(GL_LINE_LOOP);
+			worldRenderer.begin(GL_LINES, DefaultVertexFormats.POSITION);
 			tempColour.prepareColour();
+			
 			for (PointRectangle point : this.points)
 			{
 				if (point != null)
@@ -59,7 +55,8 @@ public class Render2DGrid
 					Vector2 pos = point.getPoint();
 					double x = pos.getX() - cameraPos.getX();
 					double z = pos.getY() - cameraPos.getZ();
-					worldRenderer.addVertex(x + 0.5, height - cameraPos.getY(), z + 0.5);
+					worldRenderer.pos(x + 0.5, this.min + off, z + 0.5).endVertex();
+					worldRenderer.pos(x + 0.5, this.max + 1 + off, z + 0.5).endVertex();
 				}
 			}
 			tessellator.draw();

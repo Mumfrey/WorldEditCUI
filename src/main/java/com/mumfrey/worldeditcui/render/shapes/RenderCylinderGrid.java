@@ -7,6 +7,8 @@ import com.mumfrey.worldeditcui.util.Vector3;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+
 import static com.mumfrey.liteloader.gl.GL.*;
 
 /**
@@ -58,13 +60,13 @@ public class RenderCylinderGrid
 			for (double tempX = negRadiusX; tempX <= posRadiusX; ++tempX)
 			{
 				double tempZ = this.radZ * Math.cos(Math.asin(tempX / this.radX));
-				worldRenderer.startDrawing(GL_LINE_LOOP);
+				worldRenderer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
 				tempColour.prepareColour();
 				
-				worldRenderer.addVertex(xPos + tempX, tmaxY - cameraPos.getY(), zPos + tempZ);
-				worldRenderer.addVertex(xPos + tempX, tmaxY - cameraPos.getY(), zPos - tempZ);
-				worldRenderer.addVertex(xPos + tempX, tminY - cameraPos.getY(), zPos - tempZ);
-				worldRenderer.addVertex(xPos + tempX, tminY - cameraPos.getY(), zPos + tempZ);
+				worldRenderer.pos(xPos + tempX, tmaxY - cameraPos.getY(), zPos + tempZ).endVertex();
+				worldRenderer.pos(xPos + tempX, tmaxY - cameraPos.getY(), zPos - tempZ).endVertex();
+				worldRenderer.pos(xPos + tempX, tminY - cameraPos.getY(), zPos - tempZ).endVertex();
+				worldRenderer.pos(xPos + tempX, tminY - cameraPos.getY(), zPos + tempZ).endVertex();
 				
 				tessellator.draw();
 			}
@@ -72,13 +74,13 @@ public class RenderCylinderGrid
 			for (double tempZ = negRadiusZ; tempZ <= posRadiusZ; ++tempZ)
 			{
 				double tempX = this.radX * Math.sin(Math.acos(tempZ / this.radZ));
-				worldRenderer.startDrawing(GL_LINE_LOOP);
+				worldRenderer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
 				tempColour.prepareColour();
 				
-				worldRenderer.addVertex(xPos + tempX, tmaxY - cameraPos.getY(), zPos + tempZ);
-				worldRenderer.addVertex(xPos - tempX, tmaxY - cameraPos.getY(), zPos + tempZ);
-				worldRenderer.addVertex(xPos - tempX, tminY - cameraPos.getY(), zPos + tempZ);
-				worldRenderer.addVertex(xPos + tempX, tminY - cameraPos.getY(), zPos + tempZ);
+				worldRenderer.pos(xPos + tempX, tmaxY - cameraPos.getY(), zPos + tempZ).endVertex();
+				worldRenderer.pos(xPos - tempX, tmaxY - cameraPos.getY(), zPos + tempZ).endVertex();
+				worldRenderer.pos(xPos - tempX, tminY - cameraPos.getY(), zPos + tempZ).endVertex();
+				worldRenderer.pos(xPos + tempX, tminY - cameraPos.getY(), zPos + tempZ).endVertex();
 				
 				tessellator.draw();
 			}

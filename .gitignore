@@ -1,2 +1,13 @@
-bin
-.settings
+# gradle build and logs
+build/
+.gradle/
+
+#eclipse stuff
+bin/
+.settings/
+.classpath
+.project
+
+# forge gradle eclipse launch configuration
+*.launch
+run/

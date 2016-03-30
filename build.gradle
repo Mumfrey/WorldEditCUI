@@ -1,0 +1,37 @@
+buildscript {
+	repositories {
+		jcenter()
+		maven {
+			name 'forge'
+			url 'http://files.minecraftforge.net/maven'
+		}
+	}
+	dependencies {
+		classpath 'net.minecraftforge.gradle:ForgeGradle:2.1-SNAPSHOT'
+	}
+}
+apply plugin: 'net.minecraftforge.gradle.liteloader'
+
+version = '1.8.9_00'
+description = 'Client-side user interface for WorldEdit'
+
+minecraft {
+	version = "1.8.9"
+	mappings = "stable_22"
+    runDir = 'run'
+	replace '@VERSION@', project.version
+}
+
+litemod.json {
+	name = 'wecui'
+	author = 'yetanotherx, Mumfrey, TomyLobo'
+}
+
+jar {
+	dependsOn litemod
+	from litemod.output
+}
+task deploy(type: Copy, dependsOn: build) {
+	from jar.archivePath
+	into file("$System.env.APPDATA/.minecraft/mods")
+}

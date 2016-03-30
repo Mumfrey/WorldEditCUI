@@ -7,6 +7,8 @@ import com.mumfrey.worldeditcui.util.Vector3;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+
 import static com.mumfrey.liteloader.gl.GL.*;
 
 /**
@@ -50,7 +52,7 @@ public class Render3DGrid
 		{
 			tempColour.prepareRender();
 			
-			worldRenderer.startDrawing(GL_LINES);
+			worldRenderer.begin(GL_LINES, DefaultVertexFormats.POSITION);
 			tempColour.prepareColour();
 			
 			double offsetSize = 1.0;
@@ -58,14 +60,14 @@ public class Render3DGrid
 			for (double yoff = 0; yoff + y1 <= y2; yoff += offsetSize)
 			{
 				double y = y1 + yoff;
-				worldRenderer.addVertex(x1, y, z2);
-				worldRenderer.addVertex(x2, y, z2);
-				worldRenderer.addVertex(x1, y, z1);
-				worldRenderer.addVertex(x2, y, z1);
-				worldRenderer.addVertex(x1, y, z1);
-				worldRenderer.addVertex(x1, y, z2);
-				worldRenderer.addVertex(x2, y, z1);
-				worldRenderer.addVertex(x2, y, z2);
+				worldRenderer.pos(x1, y, z2).endVertex();
+				worldRenderer.pos(x2, y, z2).endVertex();
+				worldRenderer.pos(x1, y, z1).endVertex();
+				worldRenderer.pos(x2, y, z1).endVertex();
+				worldRenderer.pos(x1, y, z1).endVertex();
+				worldRenderer.pos(x1, y, z2).endVertex();
+				worldRenderer.pos(x2, y, z1).endVertex();
+				worldRenderer.pos(x2, y, z2).endVertex();
 			}
 			
 			for (double xoff = 0; xoff + x1 <= x2; xoff += offsetSize)
@@ -74,14 +76,14 @@ public class Render3DGrid
 //				boolean major = xoff % 10 == 0;
 				if (x < -cullAt) continue;
 				if (x > cullAt) break;
-				worldRenderer.addVertex(x, y1, z1);
-				worldRenderer.addVertex(x, y2, z1);
-				worldRenderer.addVertex(x, y1, z2);
-				worldRenderer.addVertex(x, y2, z2);
-				worldRenderer.addVertex(x, y2, z1);
-				worldRenderer.addVertex(x, y2, z2);
-				worldRenderer.addVertex(x, y1, z1);
-				worldRenderer.addVertex(x, y1, z2);
+				worldRenderer.pos(x, y1, z1).endVertex();
+				worldRenderer.pos(x, y2, z1).endVertex();
+				worldRenderer.pos(x, y1, z2).endVertex();
+				worldRenderer.pos(x, y2, z2).endVertex();
+				worldRenderer.pos(x, y2, z1).endVertex();
+				worldRenderer.pos(x, y2, z2).endVertex();
+				worldRenderer.pos(x, y1, z1).endVertex();
+				worldRenderer.pos(x, y1, z2).endVertex();
 			}
 			
 			for (double zoff = 0; zoff + z1 <= z2; zoff += offsetSize)
@@ -90,14 +92,14 @@ public class Render3DGrid
 //				boolean major = zoff % 10 == 0;
 				if (z < -cullAt) continue;
 				if (z > cullAt) break;
-				worldRenderer.addVertex(x1, y1, z);
-				worldRenderer.addVertex(x2, y1, z);
-				worldRenderer.addVertex(x1, y2, z);
-				worldRenderer.addVertex(x2, y2, z);
-				worldRenderer.addVertex(x2, y1, z);
-				worldRenderer.addVertex(x2, y2, z);
-				worldRenderer.addVertex(x1, y1, z);
-				worldRenderer.addVertex(x1, y2, z);
+				worldRenderer.pos(x1, y1, z).endVertex();
+				worldRenderer.pos(x2, y1, z).endVertex();
+				worldRenderer.pos(x1, y2, z).endVertex();
+				worldRenderer.pos(x2, y2, z).endVertex();
+				worldRenderer.pos(x2, y1, z).endVertex();
+				worldRenderer.pos(x2, y2, z).endVertex();
+				worldRenderer.pos(x1, y1, z).endVertex();
+				worldRenderer.pos(x1, y2, z).endVertex();
 			}
 			
 			tessellator.draw();

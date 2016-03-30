@@ -12,8 +12,12 @@ WorldEdit installed on your server or in SinglePlayerCommands to use this mod.
 Compiling
 ---------
 
-You will need a [LiteLoader MCP workspace](https://www.youtube.com/watch?v=RMpvo-F4AFc), once you have that set up simply import the project and run the ant build script.
+You will need a [Gradle install](http://gradle.org), once you have that set up simply open the command line here and run the following commands.
 
+```shell
+gradle setupDecompWorkspace
+gradle build
+```
 
 Credits
 -------

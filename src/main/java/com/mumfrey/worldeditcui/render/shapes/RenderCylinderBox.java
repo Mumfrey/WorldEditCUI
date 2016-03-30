@@ -7,6 +7,8 @@ import com.mumfrey.worldeditcui.util.Vector3;
 
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+
 import static com.mumfrey.liteloader.gl.GL.*;
 
 /**
@@ -51,7 +53,7 @@ public class RenderCylinderBox
 			double twoPi = Math.PI * 2;
 			for (int yBlock : new int[] { this.minY, this.maxY + 1 })
 			{
-				worldRenderer.startDrawing(GL_LINE_LOOP);
+				worldRenderer.begin(GL_LINE_LOOP, DefaultVertexFormats.POSITION);
 				tempColour.prepareColour();
 				
 				for (int i = 0; i <= 75; i++)
@@ -60,7 +62,7 @@ public class RenderCylinderBox
 					double tempX = this.radX * Math.cos(tempTheta);
 					double tempZ = this.radZ * Math.sin(tempTheta);
 					
-					worldRenderer.addVertex(xPos + tempX, yBlock - cameraPos.getY(), zPos + tempZ);
+					worldRenderer.pos(xPos + tempX, yBlock - cameraPos.getY(), zPos + tempZ).endVertex();
 				}
 				tessellator.draw();
 			}
