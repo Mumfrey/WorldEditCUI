@@ -1,8 +1,0 @@
-{
-    "name": "wecui",
-    "mcversion": "${litemodversion}",
-    "version": "${version}",
-    "revision": "${build.number}",
-    "author": "${author}",
-    "description": "Client-side user interface for WorldEdit"
-}
