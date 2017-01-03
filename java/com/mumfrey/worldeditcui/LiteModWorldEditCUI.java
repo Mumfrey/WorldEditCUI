@@ -87,13 +87,13 @@ public class LiteModWorldEditCUI implements Tickable, InitCompleteListener, Plug
 	{
 		this.visible = true;
 		this.controller.getDebugger().debug("Joined game, sending initial handshake");
-		this.helo();
+		this.hello();
 	}
 	
 	/**
 	 * 
 	 */
-	private void helo()
+	private void hello()
 	{
 		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
 		String message = "v|" + WorldEditCUI.PROTOCOL_VERSION;
